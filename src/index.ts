@@ -1,17 +1,24 @@
-import express, { RequestHandler } from "express";
-import { listPostHandler, createPostHandler } from "./handlers/postHandlers";
-const app = express();
+import express, { RequestHandler } from 'express';
+import { listPostHandler, createPostHandler } from './handlers/postHandlers';
+import asyncHandler from 'express-async-handler';
+import { initDB } from './datastore';
 
-app.use(express.json());
+(async () => {
+  await initDB();
 
-const requestLoggerMiddleware: RequestHandler = (req, res, next) => {
-  console.log(`${req.method} - ${req.path} - body ${JSON.stringify(req.body)}`);
-  next();
-};
-app.use(requestLoggerMiddleware);
+  const app = express();
 
-app.get("/posts", listPostHandler);
+  app.use(express.json());
 
-app.post("/posts", createPostHandler);
+  const requestLoggerMiddleware: RequestHandler = (req, res, next) => {
+    console.log(`${req.method} - ${req.path} - body ${JSON.stringify(req.body)}`);
+    next();
+  };
+  app.use(requestLoggerMiddleware);
 
-app.listen(3000, () => console.log("App is running on port 3000 🚀"));
+  app.get('/posts', asyncHandler(listPostHandler));
+
+  app.post('/posts', asyncHandler(createPostHandler));
+
+  app.listen(3000, () => console.log('App is running on port 3000 🚀'));
+})();
