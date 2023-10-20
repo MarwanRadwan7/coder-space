@@ -20,6 +20,8 @@
     "@types/cors": "^2.8.15",
     "@types/express": "^4.17.20",
     "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
+    "prettier-plugin-sort-imports": "^1.7.2",
     "typescript": "^5.2.2"
   }
 }
