@@ -42,6 +42,6 @@ import { authMiddleware } from './middlewares/authMiddleware';
       .createServer({ key, cert }, app)
       .listen(PORT, () => console.log(`App is running on port ${PORT}  in  env ${ENV} 🚀.`));
   } else {
-    app.listen(PORT, () => console.log(`App is running on port ${PORT} 🚀`));
+    app.listen(PORT, () => console.log(`App is running on port ${PORT} 🚀 .`));
   }
 })();
