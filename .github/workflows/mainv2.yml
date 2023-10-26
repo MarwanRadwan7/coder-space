@@ -1,0 +1,19 @@
+name: Azure deployer
+
+on:
+  push:
+    branches: [deploy-prod]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Deploy and restart web server
+        run: |
+          cd server
+          npm install
+          PORT=3000 JWT_SECRET=7FhNk9JvE3RcKpZaW5QwqXsU2tY8L6G NODE_ENV=prooduction npm run start:pm2
