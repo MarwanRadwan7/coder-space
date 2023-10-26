@@ -40,7 +40,7 @@ import { authMiddleware } from './middlewares/authMiddleware';
 
     https
       .createServer({ key, cert }, app)
-      .listen(PORT, () => console.log(`App is running on port ${PORT}  in  env ${ENV} 🚀`));
+      .listen(PORT, () => console.log(`App is running on port ${PORT}  in  env ${ENV} 🚀.`));
   } else {
     app.listen(PORT, () => console.log(`App is running on port ${PORT} 🚀`));
   }
