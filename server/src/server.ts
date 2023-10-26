@@ -1,4 +1,6 @@
 require('dotenv').config();
+import * as https from 'https';
+import * as fs from 'fs';
 import express, { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { listPostHandler, createPostHandler } from './handlers/postHandlers';
@@ -30,5 +32,16 @@ import { authMiddleware } from './middlewares/authMiddleware';
   app.use(errHandler);
 
   const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`App is running on port ${PORT} 🚀`));
+  const ENV = process.env.NODE_ENV;
+
+  if (ENV === 'production') {
+    const key = fs.readFileSync('/home/marwan/certs/privkey.pem', 'utf-8');
+    const cert = fs.readFileSync('/home/marwan/certs/cert.pem', 'utf-8');
+
+    https
+      .createServer({ key, cert }, app)
+      .listen(PORT, () => console.log(`App is running on port ${PORT}  in  env ${ENV} 🚀`));
+  } else {
+    app.listen(PORT, () => console.log(`App is running on port ${PORT} 🚀`));
+  }
 })();
