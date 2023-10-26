@@ -1,0 +1,18 @@
+name: Azure deplyer
+
+on:
+  push:
+    branches: [ deploy-prod ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self_hosted
+    steps:
+
+    - uses: actions/checkout@v2
+    - name: Deploy and restart web server
+      run: |
+        cd server
+        npm install
+        PORT=3000 JWT_SECRET=7FhNk9JvE3RcKpZaW5QwqXsU2tY8L6G NODE_ENV=prooduction npm run start:pm2
