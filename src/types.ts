@@ -1,9 +1,9 @@
-import { RequestHandler } from "express";
+import { RequestHandler } from 'express';
 
 export interface User {
   id: string;
   firstName: string;
-  lastNAme: string;
+  lastName: string;
   password: string;
   email: string;
   username: string;
@@ -28,9 +28,16 @@ export interface Comment {
   postId: string;
   postedAt: string;
 }
+
+type WithError<T> = T & { error: string }; // The type you provide + add error field of type string
+
 export type ExpressHandler<Req, Res> = RequestHandler<
   string,
-  Partial<Res>,
+  Partial<WithError<Res>>,
   Partial<Req>,
   any
 >;
+
+export interface JwtObject {
+  userId: string;
+}

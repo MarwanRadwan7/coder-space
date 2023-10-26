@@ -7,6 +7,9 @@ export class InMemoryDataStore implements DataStore {
   private comments: Comment[] = [];
   private posts: Post[] = [];
 
+  getUserById(id: string): Promise<User | undefined> {
+    throw new Error('Method not implemented.');
+  }
   signUp(user: User): Promise<void> {
     this.users.push(user);
     return Promise.resolve();
