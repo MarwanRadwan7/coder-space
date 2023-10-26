@@ -5,7 +5,7 @@ const secret = process.env.JWT_SECRET as string;
 
 export function signJwt(obj: JwtObject): string {
   return jwt.sign(obj, secret, {
-    expiresIn: '3d',
+    expiresIn: '2d',
   });
 }
 
