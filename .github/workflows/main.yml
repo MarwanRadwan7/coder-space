@@ -13,7 +13,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Deploy and restart web server
+      - env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          PORT: ${{ secrets.PORT }}
         run: |
           cd server
           npm install
-          PORT=80 JWT_SECRET=7FhNk9JvE3RcKpZaW5QwqXsU2tY8L6G NODE_ENV=prooduction npm run start:pm2
+          npm run start:pm2
