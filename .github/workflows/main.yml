@@ -16,4 +16,4 @@ jobs:
         run: |
           cd server
           npm install
-          PORT=3000 JWT_SECRET=7FhNk9JvE3RcKpZaW5QwqXsU2tY8L6G NODE_ENV=prooduction npm run start:pm2
+          PORT=80 JWT_SECRET=7FhNk9JvE3RcKpZaW5QwqXsU2tY8L6G NODE_ENV=prooduction npm run start:pm2
