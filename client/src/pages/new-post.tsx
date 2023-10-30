@@ -1,5 +1,5 @@
 import { Box, Button, Flex, FormControl, FormLabel, Text } from '@chakra-ui/react';
-import { CreatePostRequest, CreatePostResponse, ENDPOINT_CONFIGS } from '@codersquare/shared';
+import { CreatePostRequest, CreatePostResponse, ENDPOINT_CONFIGS } from '@coderspace/shared';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

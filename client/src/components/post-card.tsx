@@ -7,7 +7,7 @@ import {
   GetUserResponse,
   Post,
   withParams,
-} from '@codersquare/shared';
+} from '@coderspace/shared';
 import { useQuery } from '@tanstack/react-query';
 import formatDistance from 'date-fns/formatDistance';
 import React, { useCallback } from 'react';

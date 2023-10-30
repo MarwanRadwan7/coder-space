@@ -1,10 +1,10 @@
-import { ERRORS, EndpointConfig } from '@codersquare/shared';
+import { ERRORS, EndpointConfig } from '@coderspace/shared';
 import { QueryClient } from '@tanstack/react-query';
 
 import { isDev } from '../util';
 import { getLocalStorageJWT, isLoggedIn, signOut } from './auth';
 
-const API_HOST = isDev ? `http://localhost:${window.location.port}` : 'https://api.codersquare.xyz';
+const API_HOST = isDev ? `http://localhost:${window.location.port}` : 'https://api.coderspace.xyz';
 
 export class ApiError extends Error {
   public status: number;

@@ -4,7 +4,7 @@ import {
   SignInResponse,
   SignUpRequest,
   SignUpResponse,
-} from '@codersquare/shared';
+} from '@coderspace/shared';
 
 import { callEndpoint } from '.';
 

@@ -2,7 +2,7 @@ import {
   ENDPOINT_CONFIGS,
   GetCurrentUserRequest,
   GetCurrentUserResponse,
-} from '@codersquare/shared';
+} from '@coderspace/shared';
 import { useQuery } from '@tanstack/react-query';
 import { ReactNode, createContext, useContext } from 'react';
 

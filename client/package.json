@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.3.1",
-    "@codersquare/shared": "file:../shared",
+    "@coderspace/shared": "file:../shared",
     "@craco/craco": "^7.0.0-alpha.7",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
