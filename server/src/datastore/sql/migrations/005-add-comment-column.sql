@@ -1,0 +1,2 @@
+ALTER TABLE comments 
+ADD comment VARCHAR NOT NULL;

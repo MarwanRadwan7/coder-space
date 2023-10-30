@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { JwtObject } from './types';
+import { JwtObject } from '../../shared/src/types';
 
 const secret = process.env.JWT_SECRET as string;
 

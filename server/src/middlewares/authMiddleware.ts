@@ -1,24 +1,38 @@
+import { ERRORS } from '../../../shared';
+import { TokenExpiredError, VerifyErrors } from 'jsonwebtoken';
+
 import { verifyJwt } from '../auth';
 import { db } from '../datastore';
-import { ExpressHandler } from '../types';
+import { ExpressHandler, JwtObject } from '../types';
 
-export const authMiddleware: ExpressHandler<any, any> = async (req, res, next) => {
+export const jwtParseMiddleware: ExpressHandler<any, any> = async (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) {
-    return res.sendStatus(401);
+    return next();
   }
+
+  let payload: JwtObject;
   try {
-    const payload = verifyJwt(token);
-    const user = await db.getUserById(payload.userId);
-
-    if (!user) {
-      throw 'User not found';
+    payload = verifyJwt(token);
+  } catch (e) {
+    const verifyErr = e as VerifyErrors;
+    if (verifyErr instanceof TokenExpiredError) {
+      return res.status(401).send({ error: ERRORS.TOKEN_EXPIRED });
     }
+    return res.status(401).send({ error: ERRORS.BAD_TOKEN });
+  }
 
-    res.locals.userId = user.id;
+  const user = await db.getUserById(payload.userId);
+  if (!user) {
+    return res.status(401).send({ error: ERRORS.USER_NOT_FOUND });
+  }
+  res.locals.userId = user.id;
+  return next();
+};
 
-    next();
-  } catch {
+export const enforceJwtMiddleware: ExpressHandler<any, any> = async (_, res, next) => {
+  if (!res.locals.userId) {
     return res.sendStatus(401);
   }
+  return next();
 };

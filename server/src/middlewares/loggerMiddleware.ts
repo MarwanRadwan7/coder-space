@@ -1,6 +1,12 @@
 import { RequestHandler } from 'express';
 
-export const requestLoggerMiddleware: RequestHandler = (req, res, next) => {
-  console.log(`${req.method} - ${req.path} - body ${JSON.stringify(req.body)}`);
+import { LOGGER } from '../logging';
+
+export const loggerMiddleware: RequestHandler = (req, _, next) => {
+  LOGGER.info({
+    method: req.method,
+    path: req.path,
+    body: Object.keys(req.body).length ? req.body : undefined,
+  });
   next();
 };

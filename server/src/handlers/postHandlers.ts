@@ -1,36 +1,71 @@
-import * as crypto from 'crypto';
+import {
+  CreatePostRequest,
+  CreatePostResponse,
+  DeletePostRequest,
+  DeletePostResponse,
+  ERRORS,
+  GetPostResponse,
+  ListPostsRequest,
+  ListPostsResponse,
+  Post,
+} from '../../../shared';
+import crypto from 'crypto';
 
-import { db } from '../datastore';
-import { createPostRequest, createPostResponse, ListPostRequest, ListPostResponse } from '../api';
-import { Post, ExpressHandler } from '../types';
+import { DataStore } from '../datastore';
+import { ExpressHandler, ExpressHandlerWithParams } from '../types';
 
-export const listPostHandler: ExpressHandler<ListPostRequest, ListPostResponse> = async (
-  req,
-  res,
-  next
-) => {
-  const posts = await db.listPosts();
-  res.status(200).send({ posts });
-};
+export class PostHandler {
+  private db: DataStore;
 
-export const createPostHandler: ExpressHandler<createPostRequest, createPostResponse> = async (
-  req,
-  res
-) => {
-  if (!req.body || typeof req.body.title !== 'string' || typeof req.body.url !== 'string') {
-    return res.sendStatus(400);
+  constructor(db: DataStore) {
+    this.db = db;
   }
 
-  const post: Post = {
-    id: crypto.randomUUID(),
-    postedAt: Date.now().toString(),
-    title: req.body.title,
-    userId: res.locals.userId,
-    url: req.body.url,
+  public list: ExpressHandler<ListPostsRequest, ListPostsResponse> = async (_, res) => {
+    return res.send({ posts: await this.db.listPosts() });
   };
 
-  await db.createPost(post);
-  res.status(201).send({
-    post,
-  });
-};
+  public create: ExpressHandler<CreatePostRequest, CreatePostResponse> = async (req, res) => {
+    if (!req.body.title || !req.body.url) {
+      return res.sendStatus(400);
+    }
+
+    const existing = await this.db.getPostByUrl(req.body.url);
+    if (existing) {
+      // A post with this url already exists
+      return res.status(400).send({ error: ERRORS.DUPLICATE_URL });
+    }
+
+    const post: Post = {
+      id: crypto.randomUUID(),
+      postedAt: Date.now(),
+      title: req.body.title,
+      url: req.body.url,
+      userId: res.locals.userId,
+      liked: false,
+    };
+    await this.db.createPost(post);
+    return res.sendStatus(200);
+  };
+
+  public delete: ExpressHandler<DeletePostRequest, DeletePostResponse> = async (req, res) => {
+    if (!req.body.postId) return res.sendStatus(400);
+    this.db.deletePost(req.body.postId);
+    return res.sendStatus(200);
+  };
+
+  public get: ExpressHandlerWithParams<{ id: string }, null, GetPostResponse> = async (
+    req,
+    res
+  ) => {
+    if (!req.params.id) return res.sendStatus(400);
+    const postToReturn: Post | undefined = await this.db.getPostById(
+      req.params.id,
+      res.locals.userId
+    );
+    if (!postToReturn) {
+      return res.sendStatus(404);
+    }
+    return res.send({ post: postToReturn });
+  };
+}

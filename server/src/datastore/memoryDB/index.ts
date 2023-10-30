@@ -1,5 +1,5 @@
 import { DataStore } from '..';
-import { User, Post, Comment, Like } from '../../types';
+import { User, Post, Comment, Like } from '../../../../shared/src/types';
 
 export class InMemoryDataStore implements DataStore {
   private users: User[] = [];
@@ -17,7 +17,7 @@ export class InMemoryDataStore implements DataStore {
   getUserByEmail(email: string): Promise<User | undefined> {
     return Promise.resolve(this.users.find(u => u.email === email));
   }
-  getUserByUsername(username: string): Promise<User | undefined> {
+  getUserByusername(username: string): Promise<User | undefined> {
     return Promise.resolve(this.users.find(u => u.username === username));
   }
   listPosts(): Promise<Post[] | undefined> {
