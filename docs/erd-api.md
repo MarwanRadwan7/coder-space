@@ -30,7 +30,7 @@ We'll need at least the following entities to implement the service:
 | First/Last name | STRING |
 | Password | STRING |
 | Email | STRING |
-| Username | STRING |
+| username | STRING |
 
 **Posts**:
 | Column | Type |

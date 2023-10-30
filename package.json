@@ -1,0 +1,21 @@
+{
+  "name": "coderspace",
+  "version": "1.0.0",
+  "description": "Platform to share links and discuss topics related to Software Engineering.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarwanRadwan7/coder-space.git"
+  },
+  "author": "MarwanRadwan7",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MarwanRadwan7/coder-space/issues"
+  },
+  "homepage": "https://coderspace.live",
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
+}
