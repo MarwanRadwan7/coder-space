@@ -1,18 +1,22 @@
-name: Azure deplyer
+name: Azure deployer
 
 on:
   push:
-    branches: [ deploy-prod ]
+    branches: [deploy-prod]
   workflow_dispatch:
 
 jobs:
   deploy:
-    runs-on: self_hosted
+    runs-on: self-hosted
     steps:
-
-    - uses: actions/checkout@v2
-    - name: Deploy and restart web server
-      run: |
-        cd server
-        npm install
-        PORT=3000 JWT_SECRET=7FhNk9JvE3RcKpZaW5QwqXsU2tY8L6G NODE_ENV=prooduction npm run start:pm2
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Deploy and restart web server
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          PORT: ${{ secrets.PORT }}
+        run: |
+          cd server
+          npm install
+          npm run start:pm2

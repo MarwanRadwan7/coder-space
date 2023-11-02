@@ -1,11 +1,11 @@
 import * as jwt from 'jsonwebtoken';
-import { JwtObject } from './types';
+import { JwtObject } from '../../shared/src/types';
 
 const secret = process.env.JWT_SECRET as string;
 
 export function signJwt(obj: JwtObject): string {
   return jwt.sign(obj, secret, {
-    expiresIn: '3d',
+    expiresIn: '2d',
   });
 }
 
