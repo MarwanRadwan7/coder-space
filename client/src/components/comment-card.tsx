@@ -1,13 +1,7 @@
 import { Box, Flex, Icon, Text } from '@chakra-ui/react';
-import {
-  Comment,
-  ENDPOINT_CONFIGS,
-  GetUserRequest,
-  GetUserResponse,
-  withParams,
-} from '@coderspace/shared';
+import { Comment, ENDPOINT_CONFIGS, GetUserRequest, GetUserResponse, withParams } from '../shared';
 import { useQuery } from '@tanstack/react-query';
-import { formatDistanceToNow, formatDistance } from 'date-fns';
+import { formatDistance } from 'date-fns';
 import React from 'react';
 import { BsHeart } from 'react-icons/bs';
 import { LinkItUrl } from 'react-linkify-it';

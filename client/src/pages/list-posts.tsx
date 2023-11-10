@@ -1,4 +1,4 @@
-import { ENDPOINT_CONFIGS, ListPostsRequest, ListPostsResponse } from '@coderspace/shared';
+import { ENDPOINT_CONFIGS, ListPostsRequest, ListPostsResponse } from '../shared';
 import { useQuery } from '@tanstack/react-query';
 
 import { PostCard } from '../components/post-card';

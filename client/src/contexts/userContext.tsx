@@ -1,8 +1,4 @@
-import {
-  ENDPOINT_CONFIGS,
-  GetCurrentUserRequest,
-  GetCurrentUserResponse,
-} from '@coderspace/shared';
+import { ENDPOINT_CONFIGS, GetCurrentUserRequest, GetCurrentUserResponse } from '../shared';
 import { useQuery } from '@tanstack/react-query';
 import { ReactNode, createContext, useContext } from 'react';
 

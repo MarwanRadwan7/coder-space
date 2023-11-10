@@ -7,7 +7,7 @@ import {
   GetPostResponse,
   ListCommentsResponse,
   withParams,
-} from '@coderspace/shared';
+} from '../shared';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
