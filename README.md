@@ -10,5 +10,5 @@ A social web app for sharing learning resources in a hackernews-style experience
 - [Chakra-UI](https://chakra-ui.com/) - UI framework.
 - [Nginx](https://www.nginx.com/) - Web Server.
 
-### See it live on : - [Nginx](https://www.coderspace.live/)
+### See it live on : - [coderspace](https://www.coderspace.live/)
 
